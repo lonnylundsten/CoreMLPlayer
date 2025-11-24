@@ -51,7 +51,7 @@ class CoreMLModel: Base, ObservableObject {
             if let selectedBuiltInModel {
                 loadBuiltInModel(name: selectedBuiltInModel)
             } else if let compiledModelURL {
-                if FileManager.default.fileExists(atPath: compiledModelURL.path) {
+                if FileManager.default.fileExists(atPath: compiledModelURL.path()) {
                     loadTheModel(url: compiledModelURL)
                 } else {
                     fallthrough // Fall Through to recompile from Bookmark
@@ -175,12 +175,12 @@ class CoreMLModel: Base, ObservableObject {
         var compiledDirectory = ""
         
         if let url = originalModelURL {
-            originalFile = String(url.path)
+            originalFile = String(url.path())
             originalDirectory = url.deletingLastPathComponent().path()
         }
         
         if let url = compiledModelURL {
-            compiledFile = String(url.path)
+            compiledFile = String(url.path())
             compiledDirectory = url.deletingLastPathComponent().path()
         }
         

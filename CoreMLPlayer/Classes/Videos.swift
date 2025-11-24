@@ -46,7 +46,7 @@ class Videos: Base, Gallery, ObservableObject {
     }
     
     func setPreviewImage(video: VideoFile) {
-        let videoAsset = AVAsset(url: video.url)
+        let videoAsset = AVURLAsset(url: video.url)
         let generator = AVAssetImageGenerator(asset: videoAsset)
         let time = CMTime(value: 1, timescale: 1)
         

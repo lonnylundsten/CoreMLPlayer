@@ -150,17 +150,18 @@ class VideoDetection: Base, ObservableObject {
             return
         }
         
-        let asset = AVAsset(url: url)
+        let asset = AVURLAsset(url: url)
         
         do {
             if let videoTrack = try await asset.loadTracks(withMediaType: .video).first
             {
                 let (frameRate, size) = try await videoTrack.load(.nominalFrameRate, .naturalSize)
                 let (isPlayable, duration) = try await asset.load(.isPlayable, .duration)
-                let playerItem = AVPlayerItem(asset: asset)
-                playerItem.add(playerOutput)
                 
-                DispatchQueue.main.async {
+                await MainActor.run {
+                    let playerItem = AVPlayerItem(asset: asset)
+                    playerItem.add(playerOutput)
+                    
                     self.videoInfo.frameRate = Double(frameRate)
                     self.videoInfo.duration = duration
                     self.videoInfo.size = size
@@ -182,8 +183,10 @@ class VideoDetection: Base, ObservableObject {
                 }
             }
         } catch {
-            self.videoInfo.isPlayable = false
-            self.errorMessage = "There was an error trying to load asset."
+            await MainActor.run {
+                self.videoInfo.isPlayable = false
+                self.errorMessage = "There was an error trying to load asset."
+            }
             #if DEBUG
             print("Error: \(error)")
             #endif

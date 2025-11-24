@@ -72,7 +72,7 @@ struct CoreMLModelView: View {
             }
             .pickerStyle(.segmented)
             .padding(.vertical)
-            .onChange(of: coreMLModel.autoloadSelection) { _ in
+            .onChange(of: coreMLModel.autoloadSelection) {
                 coreMLModel.bookmarkModel()
             }
             
@@ -86,7 +86,7 @@ struct CoreMLModelView: View {
             }
             .pickerStyle(.segmented)
             .padding(.vertical)
-            .onChange(of: coreMLModel.computeUnits) { _ in
+            .onChange(of: coreMLModel.computeUnits) {
                 switch coreMLModel.computeUnits {
                 case .cpuAndGPU, .all:
                     break
@@ -108,7 +108,7 @@ struct CoreMLModelView: View {
                 .pickerStyle(.segmented)
                 .padding(.top)
                 .padding(.bottom, 30)
-                .onChange(of: coreMLModel.gpuAllowLowPrecision) { _ in
+                .onChange(of: coreMLModel.gpuAllowLowPrecision) {
                     coreMLModel.reconfigure()
                 }
             default:

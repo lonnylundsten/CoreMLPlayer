@@ -173,7 +173,7 @@ extension NSImage {
     }
 }
 
-extension VNRecognizedObjectObservation: Identifiable {
+@retroactive extension VNRecognizedObjectObservation: Identifiable {
     public var id: UUID {
         return self.uuid
     }

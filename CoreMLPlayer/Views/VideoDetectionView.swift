@@ -82,7 +82,7 @@ struct VideoDetectionView: View {
                     Text("FPS Mode")
                     Toggle("", isOn: $maxFPSMode)
                         .toggleStyle(.switch)
-                        .onChange(of: maxFPSMode) { enabled in
+                        .onChange(of: maxFPSMode) { _, enabled in
                             if enabled {
                                 videoDetection.playMode = .maxFPS
                             } else {
